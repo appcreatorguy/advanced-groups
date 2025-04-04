@@ -1,4 +1,10 @@
 package dev.alphacerium.advancedgroups;
 
-public class AdvancedGroupCommandsVoicechatPlugin {
+import de.maxhenkel.voicechat.api.VoicechatPlugin;
+
+public class AdvancedGroupCommandsVoicechatPlugin implements VoicechatPlugin {
+    @Override
+    public String getPluginId() {
+        return AdvancedGroupCommands.MOD_ID;
+    }
 }

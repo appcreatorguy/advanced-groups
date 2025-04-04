@@ -1,15 +1,15 @@
 {
 	"schemaVersion": 1,
 	"id": "advancedgroups",
-	"version": "${version}",
+	"version": "${mod_version}",
 	"name": "Advanced Group Commands",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Server Commands to move players between Simple Voice Chat groups",
 	"authors": [
-		"Me!"
+		"AlphaCerium"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://alphacerium.dev/",
+		"sources": "https://github.com/appcreatorguy/advanced-group-commands"
 	},
 	"license": "MIT",
 	"icon": "icon.png",
@@ -23,12 +23,12 @@
 		]
 	},
 	"depends": {
-		"fabricloader": ">=0.16.12",
-		"minecraft": "~1.21.4",
-		"java": ">=21",
-		"fabric-api": "*"
+		"fabricloader": "${fabric_loader_dependency}",
+		"minecraft": "${minecraft_dependency}",
+		"voicechat": ">=${minecraft_version}-${voicechat_api_version}",
+		"enhancedgroups": "${enhanced_groups_version}"
 	},
-	"suggests": {
-		"another-mod": "*"
+	"breaks": {
+		"fabric-api": "${fabric_api_dependency_breaks}"
 	}
 }
