@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class AdvancedGroupPermissionManager implements PermissionManager<CommandSourceStack> {
 
@@ -84,7 +85,7 @@ public class AdvancedGroupPermissionManager implements PermissionManager<Command
             return switch (this) {
                 case EVERYONE -> true;
                 case NOONE -> false;
-                case OPS -> player != null && player.hasPermissions(player.server.getOperatorUserPermissionLevel());
+                case OPS -> player != null && player.hasPermissions(Objects.requireNonNull(player.getServer()).getOperatorUserPermissionLevel());
             };
         }
     }
