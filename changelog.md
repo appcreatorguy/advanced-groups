@@ -1,1 +1,1 @@
-- Inital Release
+- refactor group functions for easier external access by other mods
