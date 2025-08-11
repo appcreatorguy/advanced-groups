@@ -1,1 +1,1 @@
-- refactor group functions for easier external access by other mods
+- separate context from core functions for increased extensibility
