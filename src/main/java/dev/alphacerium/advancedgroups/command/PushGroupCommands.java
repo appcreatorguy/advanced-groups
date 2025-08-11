@@ -7,6 +7,7 @@ import de.maxhenkel.admiral.annotations.RequiresPermission;
 import de.maxhenkel.enhancedgroups.config.PersistentGroup;
 import dev.alphacerium.advancedgroups.AdvancedGroupCommands;
 import dev.alphacerium.advancedgroups.core.PushGroup;
+import dev.alphacerium.advancedgroups.exception.PushGroupException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,12 +27,31 @@ public class PushGroupCommands {
             context.getSource().sendFailure(Component.literal("Group not found or not persistent"));
             return 0;
         }
-        return PushGroup.pushGroup(context, player, persistentGroup.getId());
+        try {
+            PushGroup.pushGroup(player, persistentGroup.getId());
+        } catch (PushGroupException e) {
+            context.getSource().sendFailure(Component.literal(e.getMessage()));
+            return 0;
+        }
+        context.getSource().sendSuccess(() -> Component.literal("Player successfully joined %s group".formatted(persistentGroup.getName())), false);
+        return 1;
     }
 
     @Command("push")
     public int push(CommandContext<CommandSourceStack> context, @Name("player") ServerPlayer player, @Name("id") UUID groupID) {
-        return PushGroup.pushGroup(context, player, groupID);
+        try {
+            PushGroup.pushGroup(player, groupID);
+        } catch (PushGroupException e) {
+            context.getSource().sendFailure(Component.literal(e.getMessage()));
+            return 0;
+        }
+        PersistentGroup persistentGroup = AdvancedGroupCommands.PERSISTENT_GROUP_STORE.getGroup(groupID);
+        if (persistentGroup == null) {
+            context.getSource().sendFailure(Component.literal("Group not found or not persistent"));
+            return 0;
+        }
+        context.getSource().sendSuccess(() -> Component.literal("Player successfully joined %s group".formatted(persistentGroup.getName())), false);
+        return 1;
     }
 
 }
